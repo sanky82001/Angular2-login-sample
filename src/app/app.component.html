@@ -1,0 +1,16 @@
+<form (ngSubmit)="formSubmit()">
+<div>
+  <h1>{{title}}</h1>
+  <label>Enter your Login Id:</label>
+  <input type="text" [(ngModel)]="data.loginId" name = "uname"/>
+  <br/><br/>
+  <label>Enter your password:</label>
+  <input type="text" [(ngModel)]="data.pwd" name = "password" />
+  <br/><br/>
+  <button type="submit">Login</button>
+</div>
+</form>
+
+<router-outlet></router-outlet>
+
+
