@@ -6,7 +6,8 @@
   System.config({
     paths: {
       // paths serve as alias
-      'npm:': 'node_modules/'
+      'npm:': 'node_modules/',
+      "ng2-charts/ng2-charts": "node_modules/ng2-charts/ng2-charts"
     },
     // map tells the System loader where to look for things
     map: {
@@ -34,7 +35,8 @@
       },
       rxjs: {
         defaultExtension: 'js'
-      }
+      },
+      "node_modules/ng2-charts": { defaultExtension: 'js' }
     }
   });
 })(this);

@@ -1,16 +1,63 @@
 <form (ngSubmit)="formSubmit()">
 <div>
+  <div class='panel-heading'>
   <h1>{{title}}</h1>
-  <label>Enter your Login Id:</label>
+  </div>
+  <div class="form-group">
+ <label>Enter your Login Id:</label>
   <input type="text" [(ngModel)]="data.loginId" name = "uname"/>
   <br/><br/>
   <label>Enter your password:</label>
   <input type="text" [(ngModel)]="data.pwd" name = "password" />
-  <br/><br/>
-  <button type="submit">Login</button>
+  <br/><br/> 
+  </div>
+  <button type="submit" class="btn btn-info">Login</button> 
 </div>
 </form>
 
 <router-outlet></router-outlet>
 
+<div class='panel panel-primary'>
+   <table class='table table-striped table-condensed' *ngIf='excelDataSample && excelDataSample.length'>
+            <thead>
+                <tr>
+                    <th style="min-width: 80px;">Number</th>
+                    <th style="min-width: 80px;">Status</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let sampleData of excelDataSample'>
+                    <td>{{ sampleData.Incident_Number }}</td>
+                    <td>{{ sampleData.Status }}</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div style="display: block;" *ngIf='excelDataSample_month && excelDataSample_month.length'>
+    <canvas baseChart width="400" height="400"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"></canvas> 
+    </div>
+  </div>
+ <!-- <div class="col-md-6" style="margin-bottom: 10px">
+    <table class="table table-responsive table-condensed">
+      <tr>
+        <th *ngFor="let label of lineChartLabels">{{label}}</th>
+      </tr>
+      <tr *ngFor="let d of lineChartData">
+        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+      </tr>
+    </table>
+  </div> -->
+
+</div>
 
