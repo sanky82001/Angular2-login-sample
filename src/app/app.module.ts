@@ -10,7 +10,7 @@ import { UserComponent }  from './app.user';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
-  imports: [ BrowserModule, FormsModule, routing, ChartsModule ],
+  imports: [ BrowserModule, FormsModule, routing, ChartsModule],
   declarations: [ AppComponent, AdminComponent, UserComponent ],
   bootstrap: [ AppComponent ]
 })

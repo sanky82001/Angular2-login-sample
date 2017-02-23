@@ -17,47 +17,129 @@
 
 <router-outlet></router-outlet>
 
+
+<div *ngIf='excelDataSample_month && excelDataSample_month.length'>
+  <h3> Total Incidents Status</h3>
 <div class='panel panel-primary'>
    <table class='table table-striped table-condensed' *ngIf='excelDataSample && excelDataSample.length'>
             <thead>
                 <tr>
                     <th style="min-width: 80px;">Number</th>
                     <th style="min-width: 80px;">Status</th>
-                    
+                    <th style="min-width: 80px;">Description</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor='let sampleData of excelDataSample'>
                     <td>{{ sampleData.Incident_Number }}</td>
                     <td>{{ sampleData.Status }}</td>
-                    
+                    <td>{{ sampleData.Description }}</td>
                 </tr>
             </tbody>
         </table>
 </div>
+</div>
 
 <div class="row">
-  <div class="col-md-6">
-    <div style="display: block;" *ngIf='excelDataSample_month && excelDataSample_month.length'>
-    <canvas baseChart width="400" height="400"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"></canvas> 
-    </div>
-  </div>
- <!-- <div class="col-md-6" style="margin-bottom: 10px">
+  <table>
+    <tr> <button type="submit" class="btn btn-info" (click) = "loadGraphForMonth()">Load Graph for Month's Comparison</button> </tr>
+    <tr>
+      <h3> Monthwise Incidents </h3>
+    <div class="col-md-6" style="margin-bottom: 10px">
     <table class="table table-responsive table-condensed">
       <tr>
-        <th *ngFor="let label of lineChartLabels">{{label}}</th>
+        <th *ngFor="let label of lineChartLabels_month">{{label}}</th>
       </tr>
-      <tr *ngFor="let d of lineChartData">
-        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+      <tr *ngFor="let d of lineChartData_month">
+        <td *ngFor="let label of lineChartLabels_month; let j=index">{{d && d.data[j]}}</td>
       </tr>
     </table>
-  </div> -->
+  </div> </tr><tr>
 
+  <div *ngIf='seriesMonthData && seriesMonthData.length'>
+    <table>
+      <tr>
+        <td> Select for X-axis 
+<select [(ngModel)]="selectedXMonth"
+      (change)="onSelectXMonth($event.target.value)">
+  <option value="0">--Select--</option>
+  <option *ngFor="let m of seriesMonthData" [value]="m">{{m}}</option>
+</select> selectedXMonth is {{selectedXMonth}} </td>
+<td> Select for Y-axis 
+<select [(ngModel)]="selectedYMonth"
+      (change)="onSelectYMonth($event.target.value)">
+  <option value="0">--Select--</option>
+  <option *ngFor="let m of seriesMonthData" [value]="m">{{m}}</option>
+</select> selectedYMonth is {{selectedYMonth}}  </td>
+      </tr>
+    </table>
+</div></tr>
+
+<tr>
+
+<div class="col-md-6">
+    <div style="display: block;" *ngIf='excelDataSample_month && excelDataSample_month.length'>
+      
+    <canvas baseChart width="400" height="400"
+                [datasets]="lineChartData_month"
+                [labels]="lineChartLabels_month"
+                [options]="lineChartOptions_month"
+                [colors]="lineChartColors_month"
+                [legend]="lineChartLegend_month"
+                [chartType]="lineChartType_month"></canvas> 
+    </div>
+  </div>
+
+    </tr>
+
+    <tr> <button type="submit" class="btn btn-info" (click) = "loadGraphForDays()">Load Graph for Day's Comparison</button> </tr>
+<tr>
+ <h3> Daywise Incidents </h3>
+  <div class="col-md-6" style="margin-bottom: 10px">
+    <table class="table table-responsive table-condensed">
+      <tr>
+        <th *ngFor="let label of lineChartLabels_days">{{label}}</th>
+      </tr>
+      <tr *ngFor="let d of lineChartData_days">
+        <td *ngFor="let label of lineChartLabels_days; let j=index">{{d && d.data[j]}}</td>
+      </tr>
+    </table>
+  </div> 
+</tr><tr>
+  <div *ngIf='seriesDaysData && seriesDaysData.length'>
+    <table>
+      <tr>
+        <td> Select for X-axis 
+<select [(ngModel)]="selectedXDays"
+      (change)="onSelectXDays($event.target.value)">
+  <option value="0">--Select--</option>
+  <option *ngFor="let m of seriesDaysData" [value]="m">{{m}}</option>
+</select> selectedXDays is {{selectedXDays}}</td>
+<td> Select for Y-axis 
+<select [(ngModel)]="selectedYDays"
+      (change)="onSelectYDays($event.target.value)">
+  <option value="0">--Select--</option>
+  <option *ngFor="let m of seriesDaysData" [value]="m">{{m}}</option>
+</select> selectedYDays is {{selectedYDays}} </td>
+      </tr>
+    </table>
+</div></tr>
+<tr>
+
+<div class="col-md-6">
+    <div style="display: block;" *ngIf='excelDataSample_days && excelDataSample_days.length'>
+    <canvas baseChart width="400" height="400"
+                [datasets]="lineChartData_days"
+                [labels]="lineChartLabels_days"
+                [options]="lineChartOptions_days"
+                [colors]="lineChartColors_days"
+                [legend]="lineChartLegend_days"
+                [chartType]="lineChartType_days"></canvas> 
+    </div>
+  </div>
+  </tr>
+  </table>
 </div>
+
+<input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx,.xlsx,.xls">
 
